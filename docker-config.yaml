@@ -1,25 +1,47 @@
-version:"x.x"
+---
+version: "x.x"
+
 services:
+
   nginx:
+
     image: nginx:latest
     ports:
       - target: 80
         published: 80
         protocol: tcp
 
+    depends_on:
+          - database
 
   flask-app:
+
     build: ./flask-app
     ports:
       - target: 5000
         published: 5000
         protocol: tcp
 
+    depends_on:
+      - db
+
   db:
     build: ./db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
     ports:
       - target: 3306
         published: 3306
         protocol: tcp
 
+    volumes:
+      - type: volume
+        source: persistent_db
+        target: /var/lib/mysql
+
 volumes:
+  persistent_db:
+
+...
