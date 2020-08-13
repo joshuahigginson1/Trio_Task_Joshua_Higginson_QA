@@ -1,14 +1,23 @@
 #Use Python Image
 
-FROM python:3.6.8
+FROM python:3-alpine
 
-# Install apt dependencies
- 
-# Copy contents into image
- 
-# run pip dependencies
- 
-# Expose correct port
+# Install apt package manager dependencies
 
-# Create an entrypoint
+RUN sudo apt-get update
+ 
+# Copy contents into image.
 
+COPY . .
+ 
+# run our pip dependencies.
+
+RUN pip3 install flask SQLalchemy
+
+# Expose correct port.
+
+EXPOSE 5000
+
+# Create an entrypoint.
+
+ENTRYPOINT ["python3", "app.py"]

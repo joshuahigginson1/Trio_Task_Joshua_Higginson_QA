@@ -1,0 +1,25 @@
+version:"x.x"
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+
+
+  flask-app:
+    build: ./flask-app
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+
+  db:
+    build: ./db
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp
+
+volumes:
